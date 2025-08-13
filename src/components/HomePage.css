@@ -1,0 +1,54 @@
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: transparent;
+  padding: 20px 0;
+  z-index: 100;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 3px;
+  transform: perspective(300px) rotateX(15deg);
+  display: inline-block;
+}
+
+.feed {
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 100vh; /* Each post takes full viewport height */
+  position: relative;
+}
+
+/* Create a mask effect to hide posts as they scroll behind the header */
+.home-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* Height of header area */
+  background: linear-gradient(180deg, 
+    #44A7C4 0%, 
+    rgba(68, 167, 196, 0.98) 30%,
+    rgba(68, 167, 196, 0.95) 50%,
+    rgba(68, 167, 196, 0.8) 70%,
+    rgba(68, 167, 196, 0.4) 85%,
+    transparent 100%);
+  z-index: 99;
+  pointer-events: none;
+}

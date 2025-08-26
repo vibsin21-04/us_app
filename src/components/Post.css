@@ -10,20 +10,7 @@
   overflow: hidden;
 }
 
-/* User Info in Footer */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-}
+/* Removed user info sections - now using simplified design */
 
 /* Post Image */
 .post-image-container {
@@ -41,31 +28,7 @@
   border-radius: 15px 15px 0 0;
 }
 
-/* Post Actions */
-.post-actions {
-  background: #556B2F;
-  padding: 12px 16px;
-  width: 100%;
-  max-width: 350px;
-}
-
-.user-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.user-info .username {
-  font-weight: bold;
-  font-size: 14px;
-  color: white;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
+/* Post actions moved to caption area */
 
 .action-btn {
   background: none;
@@ -81,9 +44,20 @@
   transform: scale(1.1);
 }
 
+.like-btn {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+  padding: 4px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
 .like-btn.liked {
-  animation: like-bounce 0.3s ease;
   color: #ff6b6b;
+  animation: like-bounce 0.3s ease;
 }
 
 @keyframes like-bounce {
@@ -92,163 +66,31 @@
   100% { transform: scale(1); }
 }
 
-/* Chat Icon */
-.chat-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-}
-
-.chat-bubble {
-  width: 16px;
-  height: 12px;
-  border: 2px solid white;
-  border-radius: 8px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chat-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 4px;
-  width: 0;
-  height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 4px solid white;
-}
-
-.chat-lines {
-  width: 8px;
-  height: 4px;
-  background: linear-gradient(to bottom, 
-    white 0%, white 30%, 
-    transparent 30%, transparent 70%,
-    white 70%, white 100%);
-}
+/* Removed chat/comment icons - simplified design */
 
 
 
 /* Caption */
 .post-caption {
   background: #556B2F;
-  padding: 0 16px 10px;
+  padding: 12px 16px;
   font-size: 14px;
   line-height: 1.4;
   width: 100%;
   max-width: 350px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 0 0 15px 15px;
 }
 
 .caption-text {
   color: white;
-}
-
-/* Comments */
-.comments-preview {
-  background: #556B2F;
-  padding: 0 16px 10px;
-  width: 100%;
-  max-width: 350px;
-}
-
-.view-comments-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: none;
-}
-
-.view-comments-btn:hover {
-  color: #a8d4a8;
-}
-
-.comments-section {
-  background: #556B2F;
-  padding: 0 16px 15px;
-  max-height: 200px;
-  overflow-y: auto;
-  width: 100%;
-  max-width: 350px;
-}
-
-.comment {
-  margin-bottom: 8px;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.comment-username {
-  font-weight: bold;
-  color: white;
-  margin-right: 8px;
-}
-
-.comment-text {
-  color: white;
-}
-
-/* Add Comment */
-.add-comment {
-  display: flex;
-  padding: 12px 16px;
-  background: #556B2F;
-  gap: 10px;
-  width: 100%;
-  max-width: 350px;
-  border-radius: 0 0 15px 15px;
-}
-
-.comment-input {
   flex: 1;
-  border: none;
-  outline: none;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-  color: white;
 }
 
-.comment-input:focus {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.comment-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.post-comment-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 15px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.post-comment-btn:enabled:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
-}
-
-.post-comment-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
+/* Removed all comment sections - simplified design */
 
 /* Responsive Design */
 @media (max-width: 768px) {

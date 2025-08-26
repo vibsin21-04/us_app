@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './HomePage.css';
 import Post from './Post';
 
@@ -23,22 +23,14 @@ type Mode = 'RELAX' | 'LEARN' | 'LAUGH';
 
 const HomePage: React.FC = () => {
   const [currentMode, setCurrentMode] = useState<Mode>('RELAX');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  const modes: Mode[] = ['RELAX', 'LEARN', 'LAUGH'];
+  
+  const cycleMode = () => {
+    const currentIndex = modes.indexOf(currentMode);
+    const nextIndex = (currentIndex + 1) % modes.length;
+    setCurrentMode(modes[nextIndex]);
+  };
 
   // Sample post data for each mode
   const postsByMode: Record<Mode, PostData[]> = {
@@ -132,43 +124,12 @@ const HomePage: React.FC = () => {
     ]
   };
 
-  const handleModeChange = (mode: Mode) => {
-    setCurrentMode(mode);
-    setIsDropdownOpen(false);
-  };
-
   return (
     <div className="home-page">
       <header className="header">
-        <div className="mode-selector">
-          <div className="dropdown" ref={dropdownRef}>
-            <button 
-              className="dropdown-trigger main-title"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              <span className="mode-display">
-                {currentMode}
-              </span>
-              <span className={`dropdown-arrow ${isDropdownOpen ? 'open' : ''}`}>
-                ▼
-              </span>
-            </button>
-            
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                {(['RELAX', 'LEARN', 'LAUGH'] as Mode[]).map((mode) => (
-                  <button
-                    key={mode}
-                    className={`dropdown-item ${currentMode === mode ? 'active' : ''}`}
-                    onClick={() => handleModeChange(mode)}
-                  >
-                    {mode}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <h1 className="app-title" onClick={cycleMode}>
+          {currentMode}
+        </h1>
       </header>
       
       <main className="feed">

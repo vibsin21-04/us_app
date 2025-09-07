@@ -1,38 +1,39 @@
 import React, { useState } from 'react';
 import './Post.css';
-
-interface Comment {
-  id: number;
-  username: string;
-  text: string;
-}
-
-interface PostData {
-  id: number;
-  username: string;
-  userAvatar: string;
-  postImage: string;
-  caption: string;
-  likes: number;
-  comments: Comment[];
-  timeAgo: string;
-}
+import { Post as ApiPost } from '../services/apiService';
+import ApiService from '../services/apiService';
 
 interface PostProps {
-  post: PostData;
+  post: ApiPost;
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(post.likes);
+  const [currentLikes, setCurrentLikes] = useState(post.likes);
 
-  const handleLike = () => {
-    if (isLiked) {
-      setLikes(likes - 1);
-      setIsLiked(false);
-    } else {
-      setLikes(likes + 1);
-      setIsLiked(true);
+  const handleLike = async () => {
+    try {
+      let newLikeCount: number;
+      
+      if (isLiked) {
+        newLikeCount = currentLikes - 1;
+        setIsLiked(false);
+      } else {
+        newLikeCount = currentLikes + 1;
+        setIsLiked(true);
+      }
+      
+      setCurrentLikes(newLikeCount);
+      
+      // Update database
+      await ApiService.updateLikes(post._id, newLikeCount);
+      console.log(`Updated post ${post._id} likes to ${newLikeCount}`);
+      
+    } catch (error) {
+      console.error('Failed to update likes:', error);
+      // Revert on error
+      setIsLiked(!isLiked);
+      setCurrentLikes(currentLikes);
     }
   };
 
@@ -41,7 +42,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
       {/* Post Image */}
       <div className="post-image-container">
         <img 
-          src={post.postImage} 
+          src={post.link} 
           alt="Post content"
           className="post-image"
         />
